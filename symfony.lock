@@ -517,6 +517,9 @@
     "theofidry/psysh-bundle": {
         "version": "4.3.0"
     },
+    "twbs/bootstrap": {
+        "version": "v4.6.0"
+    },
     "twig/extra-bundle": {
         "version": "v3.2.1"
     },
