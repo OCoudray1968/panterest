@@ -2,11 +2,13 @@
 
 namespace App\Twig;
 
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
 class AppExtension extends AbstractExtension
 {
+
+
       public function getFunctions(): array
     {
         return [
@@ -16,7 +18,10 @@ class AppExtension extends AbstractExtension
 
     public function pluralize(int $count, string $singular, ?string $plural = null): string
     {
+        
         // $plural = $plural ?? $singular . 's'; (si le pluriel existe est n'est pas null on l'utilise sinon on utilise le singulier concatener avec s)
+        
+
         $plural ??= $singular . 's';
 
         $result = $count === 1 ? $singular : $plural;    
