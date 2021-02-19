@@ -23,6 +23,7 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+                csrf_token_generator: security.csrf.token_manager
                 # where to redirect after logout
                 # target: app_home
             remember_me: 
