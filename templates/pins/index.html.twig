@@ -3,6 +3,7 @@
 {% block title 'Find all the best pins on earth !' %}
 
 {% block body %}
+	
 	{% if pins|length > 0 %}
 		<h1 class="mb-4 text-center text-muted">{{ pluralize(pins|length, 'Pin') }}</h1>
 		
