@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
+{% extends 'layouts/base.html.twig' %}
+
+{%  block body %}
 	<h1>Error 404 !!! Page not Found</h1>
 
 	<p>
 		The requested page couldn't be located. Checkout for any URL
 		misspelling or <a href="{{ path('app_home') }}">return to the homepage</a>
 	</p>
-</body>
-</html>
+{% endblock %}
