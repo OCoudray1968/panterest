@@ -213,7 +213,7 @@ class User implements UserInterface
 
     public function gravatar(?int $size = 100)
     {
-        return 'https://www.gravatar.com/avatar/'. md5(strtolower(trim($this->getEmail()))) .'/?s=' .$size;
+        return 'https://www.gravatar.com/avatar/'. md5(strtolower(trim($this->getEmail()))) .';/?s=' .$size;
     }
 
      public function isVerified(): bool
