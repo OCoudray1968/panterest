@@ -53,15 +53,19 @@ class AccountController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordFormType::class);  
+        $form = $this->createForm(ChangePasswordFormType::class,null,[
+            'current_password_is_required' => true 
+        ]);  
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            dd($passwordEncoder->encodePassword($user, $form['newPassword']->getdata()));
+            $user->setPassword(
+                $passwordEncoder->encodePassword($user, $form['newPassword']->getdata())
+            );
             $em->flush();
 
-            $this->addFlash('success', 'Password changed successfully!');
+            $this->addFlash('success', 'Password updated successfully!');
 
             return $this->redirectToRoute('app_account');
 
