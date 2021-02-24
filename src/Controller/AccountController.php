@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Form\UserFormType;
+use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -16,9 +18,7 @@ class AccountController extends AbstractController
      */
     public function show(): Response
     {
-        return $this->render('account/show.html.twig', [
-            'controller_name' => 'AccountController',
-        ]);
+        return $this->render('account/show.html.twig');
     }
 
     /**
@@ -43,6 +43,32 @@ class AccountController extends AbstractController
 
         return $this->render('account/edit.html.twig', [
         	'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/account/change-password", name="app_account_change_password", methods={"GET", "POST"})
+     */
+    public function changePassword(Request $request, EntityManagerInterface $em,
+        UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordFormType::class);  
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            dd($passwordEncoder->encodePassword($user, $form['newPassword']->getdata()));
+            $em->flush();
+
+            $this->addFlash('success', 'Password changed successfully!');
+
+            return $this->redirectToRoute('app_account');
+
+        }
+
+        return $this->render('account/change_password.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
